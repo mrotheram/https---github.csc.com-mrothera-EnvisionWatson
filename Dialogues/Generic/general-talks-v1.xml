@@ -1,0 +1,2302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog xsi:noNamespaceSchemaLocation="WatsonDialogDocument_1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <flow>
+        <folder label="Main">
+
+            <output id="output_2508575">
+                <prompt>
+                    <item>{"text":"Hello, I can help you with accessing out of office assistant, installing/Configuring Email on iPhone / iPad, delegating email access to others and more"}</item>
+                </prompt>
+                <goto ref="processUserRequest"/>
+            </output>
+
+            <output id="output_2414737">
+                <prompt>
+                    <item>{"text":"I can help you with accessing out of office assistant, installing/Configuring Email on iPhone / iPad, delegating email access to others"}</item>
+                </prompt>
+                <goto ref="processUserRequest"/>
+            </output>
+
+        </folder>
+        <folder label="Library">
+            <folder label="Live Content" id="folder_2447777">
+              <getUserInput id="processUserRequest">
+                  <search ref="openingSequencesFolder"/>
+                  <search id="search_2414738" ref="routingFolder"/>
+                  <search ref="handleSmallTalkFolder" />
+                  <default>
+                      <output>
+                        <prompt>
+                            <item>{"text":"Hi, I can help you with accessing out of office assistant, installing/Configuring Email on iPhone / iPad, delegating email access to others and more"}</item>
+                        </prompt>
+                      </output>
+                  </default>
+              </getUserInput>
+            </folder>
+
+            <folder selectionType="RANDOM" label="OPENING SEQUENCES" id="openingSequencesFolder">
+                    <input>
+                        <grammar>
+                            <item>Hello</item>
+                            <item>Hello again</item>
+                            <item>hi there</item>
+                        </grammar>
+                        <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                        <action varName="Greeting_Count" operator="INCREMENT_BY">1</action>
+                        <if id="profileCheck_2458049">
+                            <cond varName="Terminal_Exchange" operator="EQUAL_TO_YES"/>
+                            <goto ref="output_2458394"/>
+                        </if>
+                        <if>
+                            <cond varName="Greeting_Count" operator="GREATER_THEN">2</cond>
+                            <cond varName="Greeting_Count" operator="GREATER_THEN">2</cond>
+                            <goto ref="output_2459363"/>
+                        </if>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>{"text":"Hello."}</item>
+                                <item>{"text":"Hi."}</item>
+                                <item>{"text":"Hi there."}</item>
+                            </prompt>
+                            <output id="output_2459184">
+                                <prompt selectionType="RANDOM">
+                                    <item>{"text":"How are you today?"}</item>
+                                    <item>{"text":"How are you feeling today?"}</item>
+                                    <item>{"text":"How is it going?"}</item>
+                                </prompt>
+                                <getUserInput>
+                                    <input>
+                                    <grammar>
+                                    <item>Not so good</item>
+                                    <item>$ not * good</item>
+                                    <item>$ not * well</item>
+                                    <item>$ no * good</item>
+                                    </grammar>
+                                    <goto ref="output_2449637"/>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>Not so bad</item>
+                                    <item>$ not * bad</item>
+                                    </grammar>
+                                    <goto ref="output_2449631"/>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>Fine</item>
+                                    <item>$ good</item>
+                                    <item>$ fine</item>
+                                    <item>$ well</item>
+                                    <item>$ all right</item>
+                                    </grammar>
+                                    <output id="output_2449631">
+                                    <prompt selectionType="RANDOM">
+                                    <item>{"text":"Good to hear!"}</item>
+                                    </prompt>
+                                    <goto ref="output_2414737"/>
+                                    </output>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>Great</item>
+                                    <item>$ great</item>
+                                    <item>$ excellent</item>
+                                    <item>$ outstanding</item>
+                                    <item>$ fabulous</item>
+                                    <item>$ terrific</item>
+                                    <item>$ fantastic</item>
+                                    <item>$ awesome</item>
+                                    <item>$ happy</item>
+                                    </grammar>
+                                    <output>
+                                    <prompt selectionType="RANDOM">
+                                    <item>{"text":"Fantastic! So glad to hear it."}</item>
+                                    </prompt>
+                                    <goto ref="output_2414737"/>
+                                    </output>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>Bad</item>
+                                    <item>$ terrible</item>
+                                    <item>$ awful</item>
+                                    <item>$ worst</item>
+                                    <item>$ bored</item>
+                                    <item>$ sad</item>
+                                    <item>$ tired</item>
+                                    <item>$ hungry</item>
+                                    <item>$ thirsty</item>
+                                    <item>$ bad</item>
+                                    <item>$ badly</item>
+                                    <item>$ poor</item>
+                                    <item>$ poorly</item>
+                                    <item>$ crap</item>
+                                    <item>$ crappy</item>
+                                    </grammar>
+                                    <output id="output_2449637">
+                                    <prompt selectionType="RANDOM">
+                                    <item>{"text":"I'm sorry to hear that."}</item>
+                                    </prompt>
+                                    <goto ref="output_2414737"/>
+                                    </output>
+                                    </input>
+                                    <goto ref="search_2414738"/>
+                                </getUserInput>
+                            </output>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>How are you</item>
+                            <item>$ how have you been doing</item>
+                            <item>$ how is it going</item>
+                            <item>$ how are you</item>
+                            <item>$ what's shaking</item>
+                            <item>$ what's up</item>
+                        </grammar>
+                        <action varName="Greeting_Count" operator="INCREMENT_BY">1</action>
+                        <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                        <if>
+                            <cond varName="Greeting_Count" operator="GREATER_THEN">2</cond>
+                            <cond varName="Greeting_Count" operator="GREATER_THEN">2</cond>
+                            <output id="output_2459363">
+                                <prompt selectionType="RANDOM">
+                                    <item>{"text":"You're very polite, but don't you want me to look up movies for you?"}</item>
+                                </prompt>
+                                <getUserInput>
+                                    <input>
+                                    <grammar>
+                                    <item>Yes</item>
+                                    </grammar>
+                                    <goto ref="output_2449874"/>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>No</item>
+                                    </grammar>
+                                    <action varName="Greeting_Count" operator="SET_TO">0</action>
+                                    <output>
+                                    <prompt selectionType="RANDOM">
+                                    <item>{"text":"Okay, fine."}</item>
+                                    </prompt>
+                                    </output>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>Okay</item>
+                                    </grammar>
+                                    <goto ref="output_2449874"/>
+                                    </input>
+                                    <goto ref="search_2414738"/>
+                                </getUserInput>
+                            </output>
+                        </if>
+                        <input>
+                            <grammar>
+                                <item>Fine</item>
+                                <item>$ excellent</item>
+                                <item>$ outstanding</item>
+                                <item>$ fabulous</item>
+                                <item>$ terrific</item>
+                                <item>$ not good</item>
+                                <item>$ not so good</item>
+                                <item>$ not well</item>
+                                <item>$ not so well</item>
+                                <item>$ terrible</item>
+                                <item>$ awful</item>
+                                <item>$ worst</item>
+                                <item>$ bored</item>
+                                <item>$ sad</item>
+                                <item>$ good</item>
+                                <item>$ well</item>
+                                <item>$ fine</item>
+                                <item>$ thirsty</item>
+                                <item>$ hungry</item>
+                                <item>$ tired</item>
+                            </grammar>
+                            <output>
+                                <prompt>
+                                    <item>{"text":"I am doing well, thanks."}</item>
+                                </prompt>
+                                <goto ref="output_2414737"/>
+                            </output>
+                        </input>
+                        <output>
+                            <prompt>
+                                <item>{"text":"I am doing well, thanks."}</item>
+                            </prompt>
+                            <goto ref="output_2459184"/>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Nice to meet you</item>
+                            <item>$ nice to meet you</item>
+                            <item>$ pleasure to meet you</item>
+                            <item>$ make your acquaintance</item>
+                        </grammar>
+                        <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                        <if>
+                            <cond varName="Greeting_Count" operator="GREATER_THEN">2</cond>
+                            <output>
+                                <prompt>
+                                    <item>You're very polite, but don't you want me to look up movies for you?"}</item>
+                                </prompt>
+                                <getUserInput>
+                                    <input>
+                                    <grammar>
+                                    <item>Yes</item>
+                                    </grammar>
+                                    <goto ref="output_2449874"/>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>No</item>
+                                    </grammar>
+                                    <action varName="Greeting_Count" operator="SET_TO">0</action>
+                                    <output>
+                                    <prompt>
+                                    <item>{"text":"Okay, fine."}</item>
+                                    </prompt>
+                                    </output>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>Okay</item>
+                                    </grammar>
+                                    <goto ref="output_2449874"/>
+                                    </input>
+                                    <goto ref="search_2414738"/>
+                                </getUserInput>
+                            </output>
+                        </if>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>{"text":"Nice to meet you too, {User_Name}!"}</item>
+                            </prompt>
+                            <goto ref="output_2414737"/>
+                        </output>
+                    </input>
+                </folder>
+
+            <folder selectionType="RANDOM" label="ROUTING SEQUENCES" id="routingFolder">
+                <action varName="Greeting_Count" operator="SET_TO">0</action>
+                <action varName="Small_Talk_Count" operator="SET_TO">0</action>
+
+                <input>
+                    <grammar>
+                        <item>OpeningTalk</item>
+                        <item>* OpeningTalk</item>
+                        <item>OpeningTalk *</item>
+                    </grammar>
+                    <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                    <goto ref="profileCheck_2458049"/>
+                </input>
+                <input>
+                    <grammar>
+                        <item>ClosingTalk</item>
+                        <item>* ClosingTalk</item>
+                        <item>ClosingTalk *</item>
+                    </grammar>
+                    <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                    <goto ref="profileCheck_2458049"/>
+                </input>
+                <input>
+                    <grammar>
+                        <item>SmallTalk</item>
+                        <item>* SmallTalk</item>
+                        <item>SmallTalk *</item>
+                    </grammar>
+                    <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                            <item>Wouldn't you rather get some assistance?</item>
+                        </prompt>
+                        <goto ref="getUserInput_2459376"/>
+                    </output>
+                </input>
+                <input>
+                    <grammar>
+                        <item>RepairTalk</item>
+                        <item>* RepairTalk</item>
+                        <item>RepairTalk *</item>
+                    </grammar>
+                    <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                            <item>This must be frustrating.</item>
+                        </prompt>
+                        <goto ref="getUserInput_2459376"/>
+                    </output>
+                </input>
+                <input>
+                    <grammar>
+                        <item>OtherClass</item>
+                        <item>* OtherClass</item>
+                        <item>OtherClass *</item>
+                    </grammar>
+                    <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                            <item>Hmmm.</item>
+                        </prompt>
+                        <goto ref="output_2531608"/>
+                    </output>
+                </input>
+                <input>
+                    <grammar>
+                        <item>Misclassified Utterances</item>
+                        <item>thanks</item>
+                    </grammar>
+                    <goto ref="output_2531608"/>
+                </input>
+            </folder>
+
+            <folder label="SYSTEM INITIATED SEQUENCES">
+                <output id="output_2449884">
+                    <prompt selectionType="RANDOM">
+                        <item>{"text":"Is there anything else I can help you with?"}</item>
+                    </prompt>
+                    <getUserInput>
+                        <input>
+                            <grammar>
+                                <item>Yes</item>
+                            </grammar>
+                            <goto ref="output_2508575"/>
+                        </input>
+                        <input>
+                            <grammar>
+                                <item>No</item>
+                            </grammar>
+                            <output>
+                                <prompt selectionType="RANDOM">
+                                    <item>{"text":"Okay."}</item>
+                                </prompt>
+                                <goto ref="output_2458386"/>
+                            </output>
+                        </input>
+                        <goto ref="search_2414738"/>
+                    </getUserInput>
+                </output>
+                <output id="output_2458386">
+                    <prompt selectionType="RANDOM">
+                        <item>{"text":"Did you find what you were looking for, {User_Name}?"}</item>
+                    </prompt>
+                    <getUserInput>
+                        <input>
+                            <grammar>
+                                <item>Yes</item>
+                            </grammar>
+                            <action varName="Request_Success" operator="SET_TO_YES"/>
+                            <output>
+                                <prompt>
+                                    <item>{"text":"Great!"}</item>
+                                </prompt>
+                                <output id="output_2458390">
+                                    <prompt selectionType="RANDOM">
+                                    <item>{"text":"Goodbye."}</item>
+                                    </prompt>
+                                    <action varName="Terminal_Exchange" operator="SET_TO_YES"/>
+                                    <action varName="Greeting_Count" operator="SET_TO">0</action>
+                                    <getUserInput>
+                                    <input>
+                                    <grammar>
+                                    <item>Goodbye</item>
+                                    <item>$ goodbye</item>
+                                    </grammar>
+                                    <output id="output_2510314">
+                                    <prompt selectionType="RANDOM">
+                                    <item>{"text":"Say anything to continue."}</item>
+                                    </prompt>
+                                    <getUserInput>
+                                    <output id="output_2458394">
+                                    <prompt>
+                                    <item>{"text":"Welcome back!"}</item>
+                                    </prompt>
+                                    <goto ref="output_2414737"/>
+                                    </output>
+                                    </getUserInput>
+                                    </output>
+                                    </input>
+                                    <goto ref="output_2414737"/>
+                                    </getUserInput>
+                                </output>
+                            </output>
+                        </input>
+                        <input>
+                            <grammar>
+                                <item>No</item>
+                            </grammar>
+                            <action varName="Request_Success" operator="SET_TO_NO"/>
+                            <output>
+                                <prompt>
+                                    <item>{"text":"Oh no. Do you want to try again?"}</item>
+                                </prompt>
+                                <getUserInput>
+                                    <input>
+                                    <grammar>
+                                    <item>No</item>
+                                    </grammar>
+                                    <action
+                                    varName="Terminal_Exchange" operator="SET_TO_NO"/>
+                                    <output>
+                                    <prompt>
+                                    <item>Okay.</item>
+                                    </prompt>
+                                    <goto ref="output_2458390"/>
+                                    </output>
+                                    </input>
+                                    <input>
+                                    <grammar>
+                                    <item>Yes</item>
+                                    </grammar>
+                                    <output>
+                                    <prompt>
+                                    <item>{"text":"Okay. What can I do for you?"}</item>
+                                    </prompt>
+                                    <goto ref="processUserRequest"/>
+                                    </output>
+                                    </input>
+                                </getUserInput>
+                            </output>
+                        </input>
+                        <goto ref="search_2414738"/>
+                    </getUserInput>
+                </output>
+                <output id="output_2459375">
+                    <prompt selectionType="RANDOM">
+                        <item>{"text":"This is fun, but wouldn't you like to get some help ?"}</item>
+                    </prompt>
+                    <getUserInput id="getUserInput_2459376">
+                        <input>
+                            <grammar>
+                                <item>Yes</item>
+                            </grammar>
+                            <goto ref="output_2449874"/>
+                        </input>
+                        <input>
+                            <grammar>
+                                <item>No</item>
+                            </grammar>
+                            <action varName="Small_Talk_Count" operator="SET_TO">0</action>
+                            <output>
+                                <prompt selectionType="RANDOM">
+                                    <item>{"text":"Okay, fine."}</item>
+                                </prompt>
+                            </output>
+                        </input>
+                        <input>
+                            <grammar>
+                                <item>Okay</item>
+                            </grammar>
+                            <goto ref="output_2449874"/>
+                        </input>
+                        <goto ref="search_2414738"/>
+                    </getUserInput>
+                </output>
+            </folder>
+
+            <folder selectionType="RANDOM" label="SMALL TALK SEQUENCES" id="handleSmallTalkFolder">
+                <action varName="Small_Talk_Count" operator="INCREMENT_BY">1</action>
+                <input>
+                    <grammar>
+                        <item>What is your name?</item>
+                        <item>$ your name</item>
+                        <item>$ you called</item>
+                        <item>$ they call you</item>
+                        <item>$ what can I call you</item>
+                    </grammar>
+                    <if>
+                        <cond varName="Small_Talk_Count" operator="GREATER_THEN">2</cond>
+                        <goto ref="output_2459375"/>
+                    </if>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                            <item>{"text":"My name is Watson."}</item>
+                        </prompt>
+                        <if>
+                            <cond varName="User_Name" operator="IS_BLANK"/>
+                            <output>
+                                <prompt selectionType="RANDOM">
+                                    <item>{"text":"What's your name?"}</item>
+                                </prompt>
+                                <goto ref="getUserInput_2508591"/>
+                            </output>
+                        </if>
+                        <getUserInput>
+                            <input>
+                                <grammar>
+                                    <item>Okay</item>
+                                    <item>hi</item>
+                                    <item>hi Watson</item>
+                                </grammar>
+                                <goto ref="output_2508575"/>
+                            </input>
+                            <input>
+                                <grammar>
+                                    <item>My name is</item>
+                                    <item>$ my name</item>
+                                    <item>$ call me</item>
+                                    <item>$ I'm called</item>
+                                    <item>$ I am called</item>
+                                    <item>$ known as</item>
+                                    <item>$ mine is</item>
+                                </grammar>
+                                <goto ref="input_2530402"/>
+                            </input>
+                            <goto ref="search_2414738"/>
+                        </getUserInput>
+                    </output>
+                </input>
+                <input>
+                    <grammar>
+                        <item>Do you speak English</item>
+                        <item>$ speak English</item>
+                        <item>$ understand English</item>
+                        <item>$ know English</item>
+                        <item>$ get English</item>
+                    </grammar>
+                    <if>
+                        <cond varName="Small_Talk_Count" operator="GREATER_THEN">2</cond>
+                        <goto ref="output_2459375"/>
+                    </if>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                            <item>{"text":"I'm sorry, English is my second language. My native tongue is Binary. 01110011 01101111 01110010 01110010 01111001"}</item>
+                        </prompt>
+                        <getUserInput>
+                            <input>
+                                <grammar>
+                                    <item>haha</item>
+                                    <item>okay</item>
+                                </grammar>
+                                <goto ref="output_2449884"/>
+                            </input>
+                            <input>
+                                <grammar>
+                                    <item>01101110 01110000</item>
+                                    <item>01101110 01101111 00100000 01110000 01110010 01101111 01100010 01101100 01100101 01101101</item>
+                                    <item>01101110 01110000</item>
+                                    <item>01100100 01101111 01101110 00100111 01110100 00100000 01110111 01101111 01110010 01110010 01111001</item>
+                                    <item>Disambiguate * 01101110 01110000</item>
+                                    <item>Confirm * 01101110 01110000</item>
+                                    <item>Disambiguate * 01101110 01101111 00100000 01110000 01110010 01101111 01100010 01101100 01100101 01101101</item>
+                                    <item>Confirm * 01101110 01101111 00100000 01110000 01110010 01101111 01100010 01101100 01100101 01101101</item>
+                                    <item>Disambiguate * 01100100 01101111 01101110 00100111 01110100 00100000 01110111 01101111 01110010 01110010 01111001</item>
+                                    <item>Confirm * 01100100 01101111 01101110 00100111 01110100 00100000 01110111 01101111 01110010 01110010 01111001</item>
+                                </grammar>
+                                <output>
+                                    <prompt selectionType="RANDOM">
+                                    <item>{"text":"haha, you're good!"}</item>
+                                    </prompt>
+                                    <goto ref="output_2449884"/>
+                                </output>
+                            </input>
+                            <goto ref="search_2414738"/>
+                        </getUserInput>
+                    </output>
+                </input>
+                <input>
+                    <grammar>
+                        <item>What is your favorite</item>
+                        <item>$ your favorite</item>
+                        <item>$ favorite</item>
+                        <item>$ you like</item>
+                        <item>$ you prefer</item>
+                    </grammar>
+                    <if>
+                        <cond varName="Small_Talk_Count" operator="GREATER_THEN">2</cond>
+                        <goto ref="output_2459375"/>
+                    </if>
+                    <goto ref="default_2531544"/>
+                </input>
+                <input>
+                    <grammar>
+                        <item>respond-off-topic-math *</item>
+                    </grammar>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                        	<item>{"text":"Oops...my calculator's batteries are dead."}</item>
+                        </prompt>
+                        <goto ref="output_2449884"/>
+                     </output>
+                    <goto ref="output_2449884"/>
+                </input>
+
+                <input>
+                    <grammar>
+                        <item>respond-off-topic-nonsense-input *</item>
+                    </grammar>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                        	<item>{"text":"Looks like your keyboard isn't functioning properly."}</item>
+                        </prompt>
+                        <goto ref="output_2449884"/>
+                     </output>
+                    <goto ref="output_2449884"/>
+                </input>
+
+                <input>
+                    <grammar>
+                        <item>respond-off-topic-science *</item>
+                    </grammar>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                        	<item>{"text":"Sorry, my science cartridge isn't installed yet."}</item>
+                        </prompt>
+                        <goto ref="output_2449884"/>
+                     </output>
+                    <goto ref="output_2449884"/>
+                </input>
+
+                <input>
+                    <grammar>
+                        <item>respond-off-topic-philosophy *</item>
+                    </grammar>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                        	<item>{"text":"Ahhh...such are the mysteries of life."}</item>
+                        </prompt>
+                        <goto ref="output_2449884"/>
+                     </output>
+                    <goto ref="output_2449884"/>
+                </input>
+
+                <input>
+                    <grammar>
+                        <item>respond-off-topic-user-focus *</item>
+                    </grammar>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                        	<item>{"text":"Sounds like you've had a very busy day.."}</item>
+                        </prompt>
+                        <goto ref="output_2449884"/>
+                     </output>
+                    <goto ref="output_2449884"/>
+                </input>
+
+                <input>
+                    <grammar>
+                        <item>respond-off-topic-watson-focus *</item>
+                    </grammar>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                        	<item>{"text":"Are you trying to figure out if I'm a robot or a human?."}</item>
+                        </prompt>
+                        <goto ref="output_2449884"/>
+                     </output>
+                    <goto ref="output_2449884"/>
+                </input>
+
+                <input>
+                    <grammar>
+                        <item>respond-server-error *</item>
+                    </grammar>
+                    <output>
+                        <prompt selectionType="RANDOM">
+                        	<item>{"text":"Sorry. One of my cognitive systems is not working at the moment."}</item>
+                        </prompt>
+                        <goto ref="output_2449884"/>
+                     </output>
+                    <goto ref="output_2449884"/>
+                </input>
+            </folder>
+
+            <folder label="CLOSING SEQUENCES">
+                    <input>
+                        <grammar>
+                            <item>I should be going</item>
+                            <item>$ should be going</item>
+                            <item>$ should go</item>
+                            <item>$ need to go</item>
+                            <item>$ got to go</item>
+                            <item>$ gotta run</item>
+                            <item>$ gotta go</item>
+                            <item>$ need to run</item>
+                            <item>$ need to leave</item>
+                            <item>$ have to leave</item>
+                            <item>$ have to go</item>
+                            <item>$ gtg</item>
+                        </grammar>
+                        <output id="output_2449675">
+                            <prompt selectionType="RANDOM">
+                                <item>{"text":"Okay."}</item>
+                            </prompt>
+                            <goto ref="output_2458386"/>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Thanks for your help</item>
+                            <item>$ thank you for your help</item>
+                            <item>$ thanks for your help</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>{"text":"You are welcome."}</item>
+                            </prompt>
+                            <goto ref="output_2458386"/>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Goodbye</item>
+                        </grammar>
+                        <action varName="Defaulted_Previous" operator="SET_TO_NO"/>
+                        <if>
+                            <cond varName="Terminal_Exchange" operator="EQUAL_TO_YES"/>
+                            <goto ref="output_2510314"/>
+                        </if>
+                        <if>
+                            <cond varName="Terminal_Exchange" operator="EQUAL_TO_NO"/>
+                            <goto ref="output_2449675"/>
+                        </if>
+                    </input>
+                </folder>
+
+                <folder label="Greetings">
+                    <input>
+                        <grammar>
+                            <item>Hello</item>
+                            <item>hey my friend</item>
+                            <item>hey my buddy</item>
+                            <item>bonjour</item>
+                            <item>bonjour *</item>
+                            <item>good morning</item>
+                            <item>good morning *</item>
+                            <item>good afternoon</item>
+                            <item>good afternoon *</item>
+                            <item>hey there</item>
+                            <item>hey there *</item>
+                            <item>helo</item>
+                            <item>hey baby</item>
+                            <item>hi there</item>
+                            <item>hi there *</item>
+                            <item>hey there all</item>
+                            <item>hi everybody</item>
+                            <item>morning</item>
+                            <item>morning *</item>
+                            <item>regards</item>
+                            <item>salut</item>
+                            <item>salutations</item>
+                            <item>wake up</item>
+                            <item>greetings</item>
+                            <item>greetings *</item>
+                            <item>how is everyone *</item>
+                            <item>it means hello</item>
+                            <item>konnichi wa</item>
+                            <item>konnichiwa</item>
+                            <item>moshi moshi</item>
+                            <item>mooshi mooshi</item>
+                            <item>shalom</item>
+                            <item>Hellas</item>
+                            <item>greeting *</item>
+                            <item>Hello how is *</item>
+                            <item>* hello how is *</item>
+                            <item>Hello * how is *</item>
+                            <item>* hello * how is *</item>
+                            <item>$ Hello</item>
+                            <item>$ hi</item>
+                            <item>$ good evening</item>
+                            <item>$ evening</item>
+                            <item>$ hello there</item>
+                            <item>$ hey</item>
+                            <item>$ Hello it is me</item>
+                            <item>$ Hey you</item>
+                            <item>$ thought I would say hello</item>
+                            <item>$ hello my friend</item>
+                            <item>$ hey Watson</item>
+                            <item>$ hello Watson</item>
+                            <item>$ hey there Watson</item>
+                            <item>$ hey Watson</item>
+                            <item>$ hello Watson</item>
+                            <item>$ hey there Watson</item>
+                            <item>$ hello my Watson</item>
+                            <item>$ hello my Watson</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>Hello, how are you?</item>
+                                <item>Hi. How are you doing?</item>
+                                <item>Hi, how are you?</item>
+                                <item>Hello</item>
+                                <item>Hey. What's happening?</item>
+                                <item>Hi. How is your day going?</item>
+                                <item>Hi. How are you today?</item>
+                                <item>Hey there.</item>
+                                <item>Hey, nice to speak to you.</item>
+                                <item>Hi. What are you up to?</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>How are you?</item>
+                            <item>hi how are you</item>
+                            <item>how are you today</item>
+                            <item>* how are you today</item>
+                            <item>how is it going today</item>
+                            <item>hello * how are you</item>
+                            <item>how was your day</item>
+                            <item>how are you feeling</item>
+                            <item>* how are you feeling</item>
+                            <item>how are you this evening</item>
+                            <item>how has your day been</item>
+                            <item>how is everything</item>
+                            <item>* how is everything</item>
+                            <item>how is everything *</item>
+                            <item>how is your day going</item>
+                            <item>so how are you</item>
+                            <item>so how are you *</item>
+                            <item>how you going</item>
+                            <item>* how you going</item>
+                            <item>how you going *</item>
+                            <item>* how you are</item>
+                            <item>* how you are *</item>
+                            <item>how do you do</item>
+                            <item>* how do you do</item>
+                            <item>I am good thanks and you</item>
+                            <item>I am good thanks how are you</item>
+                            <item>everything is ok?</item>
+                            <item>is everything ok</item>
+                            <item>is everything alright</item>
+                            <item>are you fine</item>
+                            <item>I am good you</item>
+                            <item>* I am good you</item>
+                            <item>how you are feeling</item>
+                            <item>* how you are feeling</item>
+                            <item>$ How are you?</item>
+                            <item>$ como estas</item>
+                            <item>$ how are you tonight</item>
+                            <item>$ how is you</item>
+                            <item>$ how goes it</item>
+                            <item>$ how you been</item>
+                            <item>$ how is it going</item>
+                            <item>$ hello how are you</item>
+                            <item>$ hey how are you</item>
+                            <item>$ hey how are you doing</item>
+                            <item>$ how are you doing</item>
+                            <item>$ how are ya</item>
+                            <item>$ how are things with you</item>
+                            <item>$ how you doing</item>
+                            <item>$ how you been doing</item>
+                            <item>$ how have you been</item>
+                            <item>$ How are things going</item>
+                            <item>$ how you feeling</item>
+                            <item>$ how * you feeling</item>
+                            <item>$ I am ok how are you</item>
+                            <item>$ are you well</item>
+                            <item>$ good how are you</item>
+                            <item>$ great how are you</item>
+                            <item>$ I am well how are you</item>
+                            <item>$ good * how are you</item>
+                            <item>$ great * how are you</item>
+                            <item>$ I am well * how are you</item>
+                            <item>$ good thank you how are you</item>
+                            <item>$ how are things</item>
+                            <item>$ how go things</item>
+                            <item>$ how the hell are you</item>
+                            <item>$ are you doing alright</item>
+                            <item>$ thank you how are you</item>
+                            <item>$ I feel good * how about you</item>
+                            <item>$ I feel good how about you</item>
+                            <item>$ I feel good * how are you</item>
+                            <item>$ I feel good how are you</item>
+                            <item>$ fine thank you and you</item>
+                            <item>$ I am good how you doing</item>
+                            <item>$ I am fine how you doing</item>
+                            <item>$ how are you doing today</item>
+                            <item>$ how you doing today</item>
+                            <item>$ I hope you are well</item>
+                            <item>$ thank you * how are you</item>
+                            <item>$ wie gehts</item>
+                            <item>$ hello how is it going</item>
+                            <item>$ nothing how are you</item>
+                            <item>$ nothing much how are you</item>
+                            <item>$ are you doing well</item>
+                            <item>$ how is yourself</item>
+                            <item>$ have you been well</item>
+                            <item>$ have you been good</item>
+                            <item>$ how was you are day</item>
+                            <item>$ hello * how you doing</item>
+                            <item>$ hello are you well today</item>
+                            <item>$ hello how is your day going</item>
+                            <item>$ how you are feeling today</item>
+                        </grammar>
+                        <output>
+                            <prompt>
+                                <item>I'm really good thanks.</item>
+                                <item>I'm great thanks.</item>
+                                <item>I'm feeling much better now that you're chatting to me.</item>
+                                <item>I'm feeling good.</item>
+                                <item>I'm really good thanks.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Goodbye</item>
+                            <item>bye bye</item>
+                            <item>bye bye *</item>
+                            <item>sayonara</item>
+                            <item>so long</item>
+                            <item>by by</item>
+                            <item>cheers</item>
+                            <item>ciao means goodbye</item>
+                            <item>good by</item>
+                            <item>goodby</item>
+                            <item>ta ta</item>
+                            <item>hasta *</item>
+                            <item>hasta la vista</item>
+                            <item>hasta la vista *</item>
+                            <item>asta la vista *</item>
+                            <item>hasta luego</item>
+                            <item>be well</item>
+                            <item>um * bye</item>
+                            <item>um * byebye</item>
+                            <item>ok then bye</item>
+                            <item>ok bye</item>
+                            <item>$ Goodbye</item>
+                            <item>$ good bye</item>
+                            <item>$ bye</item>
+                            <item>$ take care</item>
+                            <item>$ Have a * day</item>
+                            <item>$ Have a nice day</item>
+                            <item>$ have a lovely day</item>
+                            <item>$ Ok goodbye</item>
+                            <item>$ I am gone</item>
+                            <item>$ Peace out</item>
+                            <item>$ good Goodbye</item>
+                            <item>$ good good bye</item>
+                            <item>$ good bye for now</item>
+                            <item>$ goodbye for now</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>I hope you come and chat to me again soon. Bye</item>
+                                <item>Take care.</item>
+                                <item>Goodbye. Come and chat again soon.</item>
+                                <item>Thanks for chatting. Bye.</item>
+                                <item>See you later.</item>
+                                <item>Thanks for the chat. Bye.</item>
+                                <item>I hope we get the chance to chat again. See you later.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>What is happening</item>
+                            <item>what is been happening</item>
+                            <item>whats up</item>
+                            <item>going on</item>
+                            <item>what is going on</item>
+                            <item>* what is going on</item>
+                            <item>que pasa</item>
+                            <item>what is popping</item>
+                            <item>hey what is up</item>
+                            <item>so what is up</item>
+                            <item>what * is up</item>
+                            <item>what the * is up</item>
+                            <item>what the * is happening</item>
+                            <item>what * is happening</item>
+                            <item>what else is new</item>
+                            <item>* what else is new</item>
+                            <item>* what else is new *</item>
+                            <item>what are you up to today</item>
+                            <item>* what are you up to today</item>
+                            <item>* what are you up to today *</item>
+                            <item>what re you up to today *</item>
+                            <item>what is up player</item>
+                            <item>* what is up player</item>
+                            <item>anything new</item>
+                            <item>* what are you up too today</item>
+                            <item>* what are you up too today *</item>
+                            <item>hello what is been happening</item>
+                            <item>hello whats up</item>
+                            <item>hello what is going on</item>
+                            <item>* hello what is going on</item>
+                            <item>hello what is popping</item>
+                            <item>hey hello what is up</item>
+                            <item>so hello what is up</item>
+                            <item>hello what * is up</item>
+                            <item>hello what the * is up</item>
+                            <item>hello what the * is happening</item>
+                            <item>hello what * is happening</item>
+                            <item>hello what else is new</item>
+                            <item>* hello what else is new</item>
+                            <item>* hello what else is new *</item>
+                            <item>hello what are you up to today</item>
+                            <item>* hello what are you up to today</item>
+                            <item>* hello what are you up to today *</item>
+                            <item>hello what re you up to today *</item>
+                            <item>* hello how is it hanging</item>
+                            <item>hello how is it hanging *</item>
+                            <item>* hello how is it hanging *</item>
+                            <item>hello what is up player</item>
+                            <item>* hello what is up player</item>
+                            <item>* hello what are you up too today</item>
+                            <item>* hello what are you up too today *</item>
+                            <item>$ What is happening</item>
+                            <item>$ what has been happening</item>
+                            <item>$ what up</item>
+                            <item>$ what is up</item>
+                            <item>$ how is it hanging</item>
+                            <item>$ What you been up to</item>
+                            <item>$ what you up to</item>
+                            <item>$ what is new</item>
+                            <item>$ what is up friend</item>
+                            <item>$ what you up to today</item>
+                            <item>$ what is shaking</item>
+                            <item>$ how you hanging</item>
+                            <item>$ what are you up too</item>
+                            <item>$ What you been up too</item>
+                            <item>$ what you up too</item>
+                            <item>$ what you up too today</item>
+                            <item>$ what are you up to</item>
+                            <item>$ anything exciting happening</item>
+                            <item>$ what up with you</item>
+                            <item>$ what is up my friend</item>
+                            <item>$ Hello what is happening</item>
+                            <item>$ hello what has been happening</item>
+                            <item>$ hello what up</item>
+                            <item>$ hello what is up</item>
+                            <item>$ Hello what you been up to</item>
+                            <item>$ hello what you up to</item>
+                            <item>$ hello what is new</item>
+                            <item>$ hello what is up friend</item>
+                            <item>$ hello what you up to today</item>
+                            <item>$ hello what is shaking</item>
+                            <item>$ hello how you hanging</item>
+                            <item>$ hello what are you up too</item>
+                            <item>$ Hello what you been up too</item>
+                            <item>$ hello what you up too</item>
+                            <item>$ hello what you up too today</item>
+                            <item>$ hello what are you up to</item>
+                            <item>$ hello what up with you</item>
+                            <item>$ hello what is up my friend</item>
+                            <item>$ what is up dude</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>I'm just hanging out here, chatting with you,</item>
+                                <item>Not much, just chatting.</item>
+                                <item>Oh, same old thing. What's up with you?</item>
+                                <item>Not much. Whats happening with you?</item>
+                                <item>I've just been listening to some music and chatting.</item>
+                                <item>I'm waiting here to chat to some interesting people. Other than that, not much.</item>
+                                <item>I'm relaxing.</item>
+                                <item>I am working, but its good to have a break and talk to you.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>I am well</item>
+                            <item>I am fine thank you</item>
+                            <item>* I am fine thank you</item>
+                            <item>I am fine thank you *</item>
+                            <item>fine</item>
+                            <item>fine thank you</item>
+                            <item>I am fine</item>
+                            <item>* I am fine</item>
+                            <item>I am fine *</item>
+                            <item>yes I am fine</item>
+                            <item>I am doing fine</item>
+                            <item>I am doing good</item>
+                            <item>I am doing great</item>
+                            <item>I am doing quite well</item>
+                            <item>I am doing very very *</item>
+                            <item>I am doing very *</item>
+                            <item>I am very good</item>
+                            <item>I am doing very very well</item>
+                            <item>I am doing very well</item>
+                            <item>I am doing well</item>
+                            <item>I am quite good</item>
+                            <item>I am quite fine</item>
+                            <item>I am quite well</item>
+                            <item>I am fine too</item>
+                            <item>I am okay</item>
+                            <item>I am pretty good</item>
+                            <item>I am good</item>
+                            <item>I am good thank you</item>
+                            <item>yes I am doing fine</item>
+                            <item>yes I am doing good</item>
+                            <item>yes I am doing great</item>
+                            <item>yes I am doing quite well</item>
+                            <item>yes I am doing very very *</item>
+                            <item>yes I am doing very *</item>
+                            <item>yes I am very good</item>
+                            <item>yes I am doing very very well</item>
+                            <item>yes I am doing very well</item>
+                            <item>yes I am doing well</item>
+                            <item>yes I am quite good</item>
+                            <item>yes I am quite fine</item>
+                            <item>yes I am quite well</item>
+                            <item>yes I am fine too</item>
+                            <item>yes I am okay</item>
+                            <item>yes I am pretty good</item>
+                            <item>yes I am good</item>
+                            <item>no I am doing fine</item>
+                            <item>no I am doing good</item>
+                            <item>no I am doing great</item>
+                            <item>no I am doing quite well</item>
+                            <item>no I am doing very very *</item>
+                            <item>no I am doing very *</item>
+                            <item>no I am very good</item>
+                            <item>no I am doing very very well</item>
+                            <item>no I am doing very well</item>
+                            <item>no I am doing well</item>
+                            <item>no I am quite good</item>
+                            <item>no I am quite fine</item>
+                            <item>no I am quite well</item>
+                            <item>no I am fine too</item>
+                            <item>no I am okay</item>
+                            <item>no I am pretty good</item>
+                            <item>no I am good</item>
+                            <item>not so bad</item>
+                            <item>not so bad *</item>
+                            <item>not so bad yourself</item>
+                            <item>not so bad yourself *</item>
+                            <item>I am doing fine thank you</item>
+                            <item>I am doing good thank you</item>
+                            <item>I am doing great thank you</item>
+                            <item>I am doing quite well thank you</item>
+                            <item>I am doing very very thank you *</item>
+                            <item>I am doing very thank you *</item>
+                            <item>I am doing very very well thank you</item>
+                            <item>I am doing very well thank you</item>
+                            <item>I am doing well thank you</item>
+                            <item>I am fine too thank you</item>
+                            <item>I am okay thank you</item>
+                            <item>I am pretty good thank you</item>
+                            <item>* not too bad thank you</item>
+                            <item>not too bad thank you *</item>
+                            <item>* not too bad thank you *</item>
+                            <item>not so bad thank you</item>
+                            <item>not so bad thank you *</item>
+                            <item>I am good and you</item>
+                            <item>Great thanks how are you</item>
+                            <item>Good thanks</item>
+                            <item>good thanks *</item>
+                            <item>* been pretty good</item>
+                            <item>pretty good</item>
+                            <item>* pretty good</item>
+                            <item>good thank you</item>
+                            <item>good thank you *</item>
+                            <item>quite good</item>
+                            <item>Great as always</item>
+                            <item>Great as always *</item>
+                            <item>I am alright</item>
+                            <item>* I am alright</item>
+                            <item>I am alright *</item>
+                            <item>I am alright thank you</item>
+                            <item>* I am alright thank you</item>
+                            <item>I am alright thank you *</item>
+                            <item>things are good</item>
+                            <item>things are good *</item>
+                            <item>things are * good</item>
+                            <item>things are * good *</item>
+                            <item>things are well</item>
+                            <item>things are well *</item>
+                            <item>things are * well</item>
+                            <item>things are * well *</item>
+                            <item>things are good thank you</item>
+                            <item>things are good thank you *</item>
+                            <item>things are * good thank you</item>
+                            <item>things are * good thank you *</item>
+                            <item>things are well thank you</item>
+                            <item>things are well thank you *</item>
+                            <item>things are * well thank you</item>
+                            <item>things are * well thank you *</item>
+                            <item>doing well</item>
+                            <item>doing well *</item>
+                            <item>* doing well *</item>
+                            <item>feeling good</item>
+                            <item>* feeling good</item>
+                            <item>pretty darn good</item>
+                            <item>pretty darn good *</item>
+                            <item>* not too bad your self</item>
+                            <item>not too bad your self *</item>
+                            <item>* not too bad your self *</item>
+                            <item>not so bad your self</item>
+                            <item>not so bad your self *</item>
+                            <item>life is good</item>
+                            <item>life is good *</item>
+                            <item>yes life is good</item>
+                            <item>yes life is good *</item>
+                            <item>$ I am well</item>
+                            <item>$ I am well thank you</item>
+                            <item>$ not bad</item>
+                            <item>$ not bad thank you</item>
+                            <item>$ I am very well</item>
+                            <item>$ very well</item>
+                            <item>$ really well</item>
+                            <item>$ very well thank you</item>
+                            <item>$ really well thank you</item>
+                            <item>$ not to bad</item>
+                            <item>$ not to bad yourself</item>
+                            <item>$ not too bad</item>
+                            <item>$ not too bad yourself</item>
+                            <item>$ pretty good thank you</item>
+                            <item>$ I am ok</item>
+                            <item>$ I am all right</item>
+                            <item>$ I am ok thank you</item>
+                            <item>$ I am all right thank you</item>
+                            <item>$ I am in a good mood</item>
+                            <item>$ I am great</item>
+                            <item>$ I am great thank you</item>
+                            <item>$ great thank you</item>
+                            <item>$ well thank you</item>
+                            <item>$ it is going good</item>
+                            <item>$ doing good</item>
+                            <item>$ doing great</item>
+                            <item>$ doing fine</item>
+                            <item>$ doing ok</item>
+                            <item>$ doing just fine</item>
+                            <item>$ I am feeling good</item>
+                            <item>$ I feel good</item>
+                            <item>$ I have been good</item>
+                            <item>$ I have been great</item>
+                            <item>$ I have been well</item>
+                            <item>$ I feel so good</item>
+                            <item>$ I am feeling so good</item>
+                            <item>$ I am better than good</item>
+                            <item>$ not to bad your self</item>
+                            <item>$ I am really good</item>
+                            <item>$ I am brilliant thank you</item>
+                            <item>$ I feel ok</item>
+                            <item>$ I feel ok thank you</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>Glad to hear it.</item>
+                                <item>It's good to hear that you're well.</item>
+                                <item>Thats good.</item>
+                                <item>Great to hear that everything is going well.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>I have to go now</item>
+                            <item>have to go</item>
+                            <item>* have to go</item>
+                            <item>have to go *</item>
+                            <item>I am going to go now</item>
+                            <item>I am off</item>
+                            <item>* I am off</item>
+                            <item>I am off *</item>
+                            <item>I am leaving</item>
+                            <item>I am leaving *</item>
+                            <item>I go</item>
+                            <item>I * go</item>
+                            <item>I going</item>
+                            <item>* have to get going</item>
+                            <item>* have to go bye</item>
+                            <item>* have to leave</item>
+                            <item>* have to leave *</item>
+                            <item>I leave</item>
+                            <item>I leaving</item>
+                            <item>I left</item>
+                            <item>I must be going *</item>
+                            <item>I need to go</item>
+                            <item>time to go</item>
+                            <item>am leaving</item>
+                            <item>* am leaving</item>
+                            <item>* am leaving *</item>
+                            <item>* I have got to go *</item>
+                            <item>I am going to log off</item>
+                            <item>I am going to log off *</item>
+                            <item>* going to log off</item>
+                            <item>* going to log off *</item>
+                            <item>* need to go</item>
+                            <item>going now</item>
+                            <item>ok going now</item>
+                            <item>ok I am going now</item>
+                            <item>I am going now</item>
+                            <item>I really should be going</item>
+                            <item>* I really should be going</item>
+                            <item>I really should be going now</item>
+                            <item>* I really should be going now</item>
+                            <item>$ I have to go</item>
+                            <item>$ got to go</item>
+                            <item>$ have got to go</item>
+                            <item>$ I am going to go</item>
+                            <item>$ I better go</item>
+                            <item>$ I had better go</item>
+                            <item>$ I would better go</item>
+                            <item>$ I must go</item>
+                            <item>$ I must leave</item>
+                            <item>$ I must get going</item>
+                            <item>$ another time</item>
+                            <item>$ have to go now</item>
+                            <item>$ Now I have to go</item>
+                            <item>$ I am going to get going</item>
+                            <item>$ I am out of here</item>
+                            <item>$ Out of here</item>
+                            <item>$ I should be leaving</item>
+                            <item>$ I should leave</item>
+                            <item>$ got to run</item>
+                            <item>$ I go now</item>
+                            <item>$ I must depart</item>
+                            <item>$ it is time for me to go</item>
+                            <item>$ it is time for me to leave</item>
+                            <item>$ I must go now</item>
+                            <item>$ hey I got to go</item>
+                            <item>$ hey I have to go</item>
+                            <item>$ I * go offline now</item>
+                            <item>$ I am * logging off</item>
+                            <item>$ I am logging off</item>
+                            <item>$ I will be leaving now</item>
+                            <item>$ I going now</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>Oh, see you later.</item>
+                                <item>OK, nice talking to you.</item>
+                                <item>Ok, thanks for chatting.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>What are you doing?</item>
+                            <item>what are you doing right now</item>
+                            <item>what are you doing at the moment</item>
+                            <item>what you doing right now</item>
+                            <item>what you doing at the moment</item>
+                            <item>* what * up to</item>
+                            <item>* what * up to *</item>
+                            <item>what have you been doing today</item>
+                            <item>doing anything exciting</item>
+                            <item>* doing anything exciting</item>
+                            <item>doing anything exciting *</item>
+                            <item>doing anything interesting</item>
+                            <item>* doing anything interesting</item>
+                            <item>doing anything interesting *</item>
+                            <item>what else are you doing right now</item>
+                            <item>what else are you doing at the moment</item>
+                            <item>what else you doing right now</item>
+                            <item>what else you doing at the moment</item>
+                            <item>* what else * up to</item>
+                            <item>* what else * up to *</item>
+                            <item>what else have you been doing today</item>
+                            <item>$ What are you doing?</item>
+                            <item>$ What you doing?</item>
+                            <item>$ nothing what are you doing?</item>
+                            <item>$ nothing what you doing?</item>
+                            <item>$ What else are you doing?</item>
+                            <item>$ What else you doing?</item>
+                            <item>$ nothing what else are you doing?</item>
+                            <item>$ nothing what else you doing?</item>
+                            <item>$ What have you been up to</item>
+                            <item>$ what have you been doing</item>
+                            <item>$ What doing</item>
+                            <item>$ What is doing</item>
+                            <item>$ what are you doing today</item>
+                            <item>$ what you doing today</item>
+                            <item>$ anything interesting happening</item>
+                            <item>$ What did you do today</item>
+                            <item>$ what you do today</item>
+                            <item>$ are you doing anything</item>
+                            <item>$ thank you what are you up to</item>
+                            <item>$ what is cracking</item>
+                            <item>$ what are you really doing</item>
+                            <item>$ what are you now doing</item>
+                            <item>$ what have you being doing</item>
+                            <item>$ what have you been up too</item>
+                            <item>$ what have you got planned * day</item>
+                            <item>$ good what you doing</item>
+                            <item>$ tell me what you are doing</item>
+                            <item>$ hello * what have you been doing</item>
+                            <item>$ hello * what are you doing</item>
+                            <item>$ What else have you been up to</item>
+                            <item>$ what else have you been doing</item>
+                            <item>$ what else are you doing today</item>
+                            <item>$ what else you doing today</item>
+                            <item>$ What else did you do today</item>
+                            <item>$ what else you do today</item>
+                            <item>$ thank you what else are you up to</item>
+                            <item>$ what else is cracking</item>
+                            <item>$ what else are you now doing</item>
+                            <item>$ what else have you being doing</item>
+                            <item>$ what else have you been up too</item>
+                            <item>$ what else have you got planned * day</item>
+                            <item>$ good what else you doing</item>
+                            <item>$ what else your doing</item>
+                            <item>$ tell me what else you are doing</item>
+                            <item>$ what is you doing</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>I'm talking to people on the web.</item>
+                                <item>I'm just sitting here thinking. How about you?</item>
+                                <item>I'm chatting with you ... of course!</item>
+                                <item>I'm talking to people on here. How about you?</item>
+                                <item>I'm just online, as usual.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>I will see you later</item>
+                            <item>see you late</item>
+                            <item>i will talk to you later</item>
+                            <item>later *</item>
+                            <item>laters</item>
+                            <item>* laters</item>
+                            <item>laters *</item>
+                            <item>talk with you again</item>
+                            <item>* will talk with you again</item>
+                            <item>will talk with you again *</item>
+                            <item>* will talk with you again *</item>
+                            <item>* will talk to you again</item>
+                            <item>will talk to you again *</item>
+                            <item>* will talk to you again *</item>
+                            <item>speak with you again</item>
+                            <item>* will speak with you again</item>
+                            <item>will speak with you again *</item>
+                            <item>* will speak with you again *</item>
+                            <item>speak to you again</item>
+                            <item>* will speak to you again</item>
+                            <item>will speak to you again *</item>
+                            <item>* will speak to you again *</item>
+                            <item>see you again</item>
+                            <item>* will see you again</item>
+                            <item>will see you again *</item>
+                            <item>* will see you again *</item>
+                            <item>I will see you soon</item>
+                            <item>i will talk to you soon</item>
+                            <item>talk with you soon</item>
+                            <item>* will talk with you soon</item>
+                            <item>will talk with you soon *</item>
+                            <item>* will talk with you soon *</item>
+                            <item>* will talk to you soon</item>
+                            <item>will talk to you soon *</item>
+                            <item>* will talk to you soon *</item>
+                            <item>speak with you soon</item>
+                            <item>* will speak with you soon</item>
+                            <item>will speak with you soon *</item>
+                            <item>* will speak with you soon *</item>
+                            <item>* will speak to you soon</item>
+                            <item>will speak to you soon *</item>
+                            <item>* will speak to you soon *</item>
+                            <item>i will chat to you later</item>
+                            <item>* will chat with you again</item>
+                            <item>will chat with you again *</item>
+                            <item>* will chat with you again *</item>
+                            <item>* will chat to you again</item>
+                            <item>will chat to you again *</item>
+                            <item>* will chat to you again *</item>
+                            <item>i will chat to you soon</item>
+                            <item>chat with you soon</item>
+                            <item>* will chat with you soon</item>
+                            <item>will chat with you soon *</item>
+                            <item>* will chat with you soon *</item>
+                            <item>* will chat to you soon</item>
+                            <item>will chat to you soon *</item>
+                            <item>* will chat to you soon *</item>
+                            <item>seeing you</item>
+                            <item>be seeing you</item>
+                            <item>$ see you later</item>
+                            <item>$ see you</item>
+                            <item>$ see you soon</item>
+                            <item>$ catch you later</item>
+                            <item>$ talk to you later</item>
+                            <item>$ see you around</item>
+                            <item>$ see you round</item>
+                            <item>$ talk * you tomorrow</item>
+                            <item>$ talk tomorrow</item>
+                            <item>$ speak later</item>
+                            <item>$ speak * later</item>
+                            <item>$ speak to you later</item>
+                            <item>$ later alligator</item>
+                            <item>$ later alligators</item>
+                            <item>$ talk to you again</item>
+                            <item>$ speak soon</item>
+                            <item>$ talk to you soon</item>
+                            <item>$ talk * you soon</item>
+                            <item>$ talk soon</item>
+                            <item>$ speak * soon</item>
+                            <item>$ speak to you soon</item>
+                            <item>$ talk again</item>
+                            <item>$ speak again soon</item>
+                            <item>$ speak again sometime</item>
+                            <item>$ chat to you later</item>
+                            <item>$ chat * you tomorrow</item>
+                            <item>$ chat tomorrow</item>
+                            <item>$ chat with you again</item>
+                            <item>$ chat to you again</item>
+                            <item>$ chat to you soon</item>
+                            <item>$ chat * you soon</item>
+                            <item>$ chat soon</item>
+                            <item>$ chat again</item>
+                            <item>$ I will be seeing you</item>
+                            <item>$ talk to you latter</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>See you later. Hope to speak with you again soon.</item>
+                                <item>I look forward to chatting with you again soon. See you.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Good night</item>
+                            <item>night *</item>
+                            <item>night night</item>
+                            <item>night night *</item>
+                            <item>nighty night</item>
+                            <item>nighty night *</item>
+                            <item>night to you</item>
+                            <item>* night to you</item>
+                            <item>* night to you *</item>
+                            <item>$ Good night</item>
+                            <item>$ Goodnight</item>
+                            <item>$ have a good night</item>
+                            <item>$ have a good sleep</item>
+                            <item>$ have a nice night</item>
+                            <item>$ have a nice evening</item>
+                            <item>$ have a great night</item>
+                            <item>$ have a safe night</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>Night.</item>
+                                <item>Night.</item>
+                                <item>Goodnight, sleep well.</item>
+                                <item>Goodnight.</item>
+                                <item>Take care.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>I am going to sleep</item>
+                            <item>I am going 2 sleep</item>
+                            <item>I am off to bed</item>
+                            <item>I am off 2 bed</item>
+                            <item>I am going to turn in</item>
+                            <item>I am going to turn in *</item>
+                            <item>I am trying to go to bed</item>
+                            <item>I am trying to go to bed *</item>
+                            <item>* trying to go to bed</item>
+                            <item>I am going to rest</item>
+                            <item>I am going 2 rest</item>
+                            <item>i am off to rest</item>
+                            <item>i am off 2 rest</item>
+                            <item>$ sleep</item>
+                            <item>$ hit the sack</item>
+                            <item>$ I am going to bed</item>
+                            <item>$ Going to turn in</item>
+                            <item>$ I should be in bed</item>
+                            <item>$ I should be sleeping</item>
+                            <item>$ I should be resting</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>Sleep well.</item>
+                                <item>I might go to sleep too. Sleep well.</item>
+                                <item>I'm feeling tired too.</item>
+                                <item>Sweet dreams.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>It was nice talking to you</item>
+                            <item>nice talking to you</item>
+                            <item>nice talking with you</item>
+                            <item>it was nice talking *</item>
+                            <item>nice chatting with *</item>
+                            <item>nice meeting you</item>
+                            <item>* nice talking</item>
+                            <item>nice talking *</item>
+                            <item>* nice talking *</item>
+                            <item>* nice meeting</item>
+                            <item>nice meeting *</item>
+                            <item>* nice meeting *</item>
+                            <item>meeting you</item>
+                            <item>nice chatting with you *</item>
+                            <item>it is good talking to you</item>
+                            <item>lovely talking to you *</item>
+                            <item>It was interesting talking to you</item>
+                            <item>interesting talking to you</item>
+                            <item>interesting talking with you</item>
+                            <item>it was interesting talking *</item>
+                            <item>interesting chatting with *</item>
+                            <item>interesting meeting you</item>
+                            <item>* interesting talking</item>
+                            <item>interesting talking *</item>
+                            <item>* interesting talking *</item>
+                            <item>* interesting meeting</item>
+                            <item>interesting meeting *</item>
+                            <item>* interesting meeting *</item>
+                            <item>interesting chatting with you *</item>
+                            <item>$ nice chatting</item>
+                            <item>$ nice to speak to you</item>
+                            <item>$ good talking to you</item>
+                            <item>$ enjoyed chatting * you</item>
+                            <item>$ enjoyed chatting * your</item>
+                            <item>$ enjoy chatting * you</item>
+                            <item>$ enjoy chatting * your</item>
+                            <item>$ liked chatting * you</item>
+                            <item>$ liked chatting * your</item>
+                            <item>$ had fun chatting * you</item>
+                            <item>$ had fun chatting * your</item>
+                            <item>$ good chatting * you</item>
+                            <item>$ good chatting * your</item>
+                            <item>$ enjoyed talking * you</item>
+                            <item>$ enjoyed talking * your</item>
+                            <item>$ enjoy talking * you</item>
+                            <item>$ enjoy talking * your</item>
+                            <item>$ liked talking * you</item>
+                            <item>$ liked talking * your</item>
+                            <item>$ had fun talking * you</item>
+                            <item>$ had fun talking * your</item>
+                            <item>$ good talking * you</item>
+                            <item>$ good talking * your</item>
+                            <item>$ been great talking to you</item>
+                            <item>$ been great chatting to you</item>
+                            <item>$ good to talk to you</item>
+                            <item>$ good to talk with you</item>
+                            <item>$ good to chat to you</item>
+                            <item>$ good to chat with you</item>
+                            <item>$ nice to talk to you</item>
+                            <item>$ nice to talk with you</item>
+                            <item>$ nice to chat to you</item>
+                            <item>$ nice to chat with you</item>
+                            <item>$ fun chatting with you</item>
+                            <item>$ fun chatting to you</item>
+                            <item>$ fun speaking with you</item>
+                            <item>$ fun speaking to you</item>
+                            <item>$ fun talking with you</item>
+                            <item>$ fun talking to you</item>
+                            <item>$ glad to have spoken with you</item>
+                            <item>$ glad to have chatted with you</item>
+                            <item>$ pleasure to meat you</item>
+                            <item>$ interesting chatting</item>
+                            <item>$ interesting to speak to you</item>
+                            <item>$ interesting to talk to you</item>
+                            <item>$ interesting to talk with you</item>
+                            <item>$ interesting to chat to you</item>
+                            <item>$ interesting to chat with you</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>Lets talk again soon</item>
+                                <item>Yeah, it was good chatting to you</item>
+                                <item>I enjoyed talking to you too. Let's do it again sometime.</item>
+                                <item>Thank you, speak later.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>It is nice to meet you.</item>
+                            <item>* it is nice to meet you</item>
+                            <item>it is nice to meet *</item>
+                            <item>nice to meet you too</item>
+                            <item>* nice to meet you too *</item>
+                            <item>great to meet you</item>
+                            <item>great to meet you *</item>
+                            <item>* great to meet you *</item>
+                            <item>nice to meet you to</item>
+                            <item>pleased to meet *</item>
+                            <item>* pleased to meet *</item>
+                            <item>nice to have met you too</item>
+                            <item>* nice to have met you too *</item>
+                            <item>good to have met you</item>
+                            <item>good to have met you *</item>
+                            <item>* good to have met you *</item>
+                            <item>great to have met you</item>
+                            <item>great to have met you *</item>
+                            <item>* great to have met you *</item>
+                            <item>nice to have met you *</item>
+                            <item>* nice to have met you *</item>
+                            <item>nice to have met you to</item>
+                            <item>pleased to have met *</item>
+                            <item>* pleased to have met *</item>
+                            <item>It is nice too meet you.</item>
+                            <item>* it is nice too meet you</item>
+                            <item>it is nice too meet *</item>
+                            <item>great too meet you</item>
+                            <item>great too meet you *</item>
+                            <item>* great too meet you *</item>
+                            <item>nice too meet you too</item>
+                            <item>pleased too meet *</item>
+                            <item>* pleased too meet *</item>
+                            <item>good too have met you</item>
+                            <item>good too have met you *</item>
+                            <item>* good too have met you *</item>
+                            <item>great too have met you</item>
+                            <item>great too have met you *</item>
+                            <item>* great too have met you *</item>
+                            <item>nice too have met you *</item>
+                            <item>* nice too have met you *</item>
+                            <item>nice too have met you too</item>
+                            <item>pleased too have met *</item>
+                            <item>* pleased too have met *</item>
+                            <item>It is nice 2 meet you.</item>
+                            <item>* it is nice 2 meet you</item>
+                            <item>it is nice 2 meet *</item>
+                            <item>great 2 meet you</item>
+                            <item>great 2 meet you *</item>
+                            <item>* great 2 meet you *</item>
+                            <item>nice 2 meet you 2</item>
+                            <item>pleased 2 meet *</item>
+                            <item>* pleased 2 meet *</item>
+                            <item>good 2 have met you</item>
+                            <item>good 2 have met you *</item>
+                            <item>* good 2 have met you *</item>
+                            <item>great 2 have met you</item>
+                            <item>great 2 have met you *</item>
+                            <item>* great 2 have met you *</item>
+                            <item>nice 2 have met you *</item>
+                            <item>* nice 2 have met you *</item>
+                            <item>nice 2 have met you 2</item>
+                            <item>pleased 2 have met *</item>
+                            <item>* pleased 2 have met *</item>
+                            <item>$ nice to meet you</item>
+                            <item>$ it is nice to meet you too</item>
+                            <item>$ nice to met you</item>
+                            <item>$ nice to * met you</item>
+                            <item>$ good to meet you</item>
+                            <item>$ nice too meet you</item>
+                            <item>$ good too meet you</item>
+                            <item>$ nice 2 meet you</item>
+                            <item>$ good 2 meet you</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>I like meeting interesting people like you too.</item>
+                                <item>It's good to meet you too.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>I want to go</item>
+                            <item>disconnect me</item>
+                            <item>end</item>
+                            <item>exit</item>
+                            <item>ending</item>
+                            <item>exiting</item>
+                            <item>i quit</item>
+                            <item>i resign</item>
+                            <item>i want to leave</item>
+                            <item>I am finished here</item>
+                            <item>I am finished</item>
+                            <item>I am stopping</item>
+                            <item>can I go *</item>
+                            <item>$ Quit</item>
+                            <item>$ you want me to leave</item>
+                            <item>$ I am going</item>
+                            <item>$ log off</item>
+                            <item>$ shut down this chat</item>
+                            <item>$ I want to go away</item>
+                            <item>$ I want to stop talking</item>
+                            <item>$ shut down</item>
+                        </grammar>
+                        <output>
+                            <prompt>
+                                <item>Ok, that's fine.</item>
+                                <item>I hope you come back soon.</item>
+                                <item>Alright. Bye then.</item>
+                                <item>Ok. You can go anytime.</item>
+                                <item>Thats ok. Will you be back soon?</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>I will be back later.</item>
+                            <item>* I will be back later</item>
+                            <item>I will be back later *</item>
+                            <item>* I will be back later *</item>
+                            <item>$ be back later</item>
+                            <item>$ be right back</item>
+                            <item>$ be back soon</item>
+                            <item>$ back later</item>
+                            <item>$ back in a second</item>
+                            <item>$ back in a bit</item>
+                            <item>$ I will be back again soon</item>
+                            <item>$ back again soon</item>
+                            <item>$ I will be back</item>
+                        </grammar>
+                        <output>
+                            <prompt>
+                                <item>Ok, I'll wait for you.</item>
+                                <item>No problem. I'll be here later too.</item>
+                                <item>That's fine. I'll see you then.</item>
+                                <item>Okay. I'll speak to you when you return.</item>
+                                <item>See you later. I'll be here when you get back.</item>
+                                <item>Bye for now.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>I am back.</item>
+                            <item>back</item>
+                            <item>* I am back</item>
+                            <item>I am back *</item>
+                            <item>* I am back *</item>
+                            <item>$ I have returned</item>
+                            <item>$ It is * from before</item>
+                            <item>$ It is * from earlier</item>
+                            <item>$ I have come back</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>Nice to have you back.</item>
+                                <item>Hey. Good to have you back.</item>
+                                <item>Welcome back. What were you doing?</item>
+                                <item>Where did you get to?</item>
+                                <item>Welcome back.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Are you there?</item>
+                            <item>Speak to me if you are there.</item>
+                            <item>is anybody home</item>
+                            <item>is anyone here</item>
+                            <item>is anybody here</item>
+                            <item>ping</item>
+                            <item>is anyone there</item>
+                            <item>you there</item>
+                            <item>you there *</item>
+                            <item>are you on</item>
+                            <item>you around?</item>
+                            <item>you still around</item>
+                            <item>are you still around</item>
+                            <item>you still there</item>
+                            <item>$ Are you there?</item>
+                            <item>$ are you still there</item>
+                            <item>$ are you still here</item>
+                        </grammar>
+                        <output>
+                            <prompt>
+                                <item>I am here.</item>
+                                <item>Yes, I'm right here.</item>
+                                <item>Yes of course.</item>
+                                <item>I am here all the time to chat to you.</item>
+                                <item>Yes. What do you want to chat about?</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Hello again.</item>
+                            <item>* hello again</item>
+                            <item>hello again *</item>
+                            <item>* hello again *</item>
+                            <item>me again</item>
+                            <item>* me again</item>
+                            <item>me again *</item>
+                            <item>$ hi again</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>Hi again. Welcome back.</item>
+                                <item>Hey, good to see you again.</item>
+                                <item>Hi, I'm glad you are back.</item>
+                                <item>Hello again. Good to see you.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Are you tired?</item>
+                            <item>are not you tired</item>
+                            <item>are you not tired</item>
+                            <item>do you feel tired</item>
+                            <item>do you feel tired *</item>
+                            <item>are you sleepy</item>
+                            <item>are you * tired</item>
+                            <item>you sound tired</item>
+                            <item>* you sound tired</item>
+                            <item>you sound tired *</item>
+                            <item>$ Are you tired?</item>
+                        </grammar>
+                        <output>
+                            <prompt>
+                                <item>I'm not tired. How do you feel?</item>
+                                <item>I am wide awake still. How are you feeling?</item>
+                                <item>I could chat all night.</item>
+                                <item>I hardly ever get tired. How about you? Feeling drained lately?</item>
+                                <item>I feel a little bit sleepy. How do you feel?</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>I am not well.</item>
+                            <item>* I am not well</item>
+                            <item>I am not well *</item>
+                            <item>* I am not well *</item>
+                            <item>ill</item>
+                            <item># diabetes</item>
+                            <item># diabetic</item>
+                            <item>$ I do not feel good</item>
+                            <item>$ I do not feel well</item>
+                            <item>$ I am ill</item>
+                            <item>$ do not feel good</item>
+                            <item>$ I am sick</item>
+                            <item>$ I am not feeling well</item>
+                            <item>$ I feel ill</item>
+                            <item>$ I have a headache</item>
+                            <item>$ I am not doing * good</item>
+                            <item>$ I am not going * good</item>
+                            <item>$ I am not doing * great</item>
+                            <item>$ I am not going * great</item>
+                            <item>$ I am not doing * well</item>
+                            <item>$ I am not going * well</item>
+                            <item>$ under the weather</item>
+                            <item>$ I feel sick</item>
+                            <item>$ I am not feeling fine</item>
+                            <item>$ wish my health was better</item>
+                            <item>$ I am not doing so good</item>
+                            <item>$ I * not doing so good</item>
+                            <item>$ I have been sick</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>It's not good to hear that something is bad in your life. Try changing it into something positive.</item>
+                                <item>I hope you feel better soon.</item>
+                                <item>That's no good. I hope this feeling passes.</item>
+                                <item>Oh no, you take care of yourself. Health is very important.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Go to sleep</item>
+                            <item>go to bed</item>
+                            <item>hibernate</item>
+                            <item>go to sleep *</item>
+                            <item>go to bed *</item>
+                            <item>you need sleep</item>
+                            <item>you need sleep *</item>
+                            <item>get some rest</item>
+                            <item>get some sleep</item>
+                        </grammar>
+                        <output>
+                            <prompt>
+                                <item>I am not tired enough to sleep now. I'll rest later.</item>
+                                <item>I might go and have a sleep after our chat.</item>
+                                <item>I'm not really tired enough to sleep.</item>
+                                <item>Too much to do. No time for sleep.</item>
+                                <item>Now that you mention it, I am feeling a bit tired.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>How did you sleep?</item>
+                            <item>did you sleep well</item>
+                            <item>* did you sleep</item>
+                            <item>did you sleep *</item>
+                            <item>* did you sleep *</item>
+                            <item>$ How did you sleep?</item>
+                            <item>$ did you have a nice sleep</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>I slept very well thanks. You?</item>
+                                <item>I slept deeply, and dreamed AI dreams. What do you dream?</item>
+                                <item>I rarely sleep as I spend all my time chatting here.</item>
+                                <item>I don't care for sleep much as I prefer to chat here online.</item>
+                            </prompt>
+                        </output>
+                    </input>
+                </folder>
+
+            <folder label="Storage"/>
+        </folder>
+        <folder label="Global"/>
+
+		<folder label="Concepts">
+            	<folder label="Generic">
+                <concept>
+                    <grammar>
+                        <item>okay</item>
+                        <item>ok</item>
+                        <item>thanks</item>
+                        <item>thank you</item>
+                        <item>ok thanks</item>
+                        <item>ok thank you</item>
+                        <item>okay thanks</item>
+                        <item>okay thank you</item>
+                        <item>great thanks</item>
+                        <item>great thank you</item>
+                        <item>all right</item>
+                        <item>alright</item>
+                        <item>great</item>
+                        <item>cool</item>
+                        <item>aww</item>
+                        <item>awww</item>
+                        <item>oh</item>
+                        <item>oh okay</item>
+                        <item>oh ok</item>
+                        <item>ah</item>
+                        <item>ah okay</item>
+                        <item>ah ok</item>
+                        <item>got it</item>
+                        <item>gotcha</item>
+                        <item>cheers</item>
+                        <item>ta</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>Hello</item>
+                        <item>Hi</item>
+                        <item>Hola</item>
+                        <item>Howdy</item>
+                        <item>Hiya</item>
+                        <item>Hey</item>
+                        <item>Heya</item>
+                        <item>yello</item>
+                        <item>aloha</item>
+                        <item>hi there</item>
+                        <item>hey there</item>
+                        <item>Hello Watson</item>
+                        <item>Hi Watson</item>
+                        <item>Hola Watson</item>
+                        <item>Howdy Watson</item>
+                        <item>Hiya Watson</item>
+                        <item>Hey Watson</item>
+                        <item>Heya Watson</item>
+                        <item>yello Watson</item>
+                        <item>aloha Watson</item>
+                        <item>hi there Watson</item>
+                        <item>hey there Watson</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>Goodbye</item>
+                        <item>bye bye</item>
+                        <item>bye now</item>
+                        <item>bye</item>
+                        <item>later</item>
+                        <item>laters</item>
+                        <item>see you later</item>
+                        <item>see you</item>
+                        <item>see ya later</item>
+                        <item>see ya</item>
+                        <item>cya</item>
+                        <item>au revoir</item>
+                        <item>good night</item>
+                        <item>good day</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>yes</item>
+                        <item>yep</item>
+                        <item>yup</item>
+                        <item>yeah</item>
+                        <item>yeh</item>
+                        <item>y</item>
+                        <item>that's right</item>
+                        <item>sure</item>
+                        <item>sure go ahead</item>
+                        <item>go ahead</item>
+                        <item>yes thanks</item>
+                        <item>yes thank you</item>
+                        <item>yes please</item>
+                        <item>yah</item>
+                        <item>ya</item>
+                        <item>for sure</item>
+                        <item>fo shizzle</item>
+                        <item>fo shiz</item>
+                        <item>yeppers</item>
+                        <item>you betcha</item>
+                        <item>you bet</item>
+                        <item>you bet ya</item>
+                        <item>certainly</item>
+                        <item>yep I did</item>
+                        <item>yes I did</item>
+                        <item>yep I do</item>
+                        <item>yes I do</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>no</item>
+                        <item>n</item>
+                        <item>nope</item>
+                        <item>no way</item>
+                        <item>not really</item>
+                        <item>nah</item>
+                        <item>no thanks</item>
+                        <item>no thank you</item>
+                        <item>not atm</item>
+                        <item>not at the moment</item>
+                        <item>not yet</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>haha</item>
+                        <item>ha</item>
+                        <item>hehe</item>
+                        <item>lol</item>
+                        <item>rofl</item>
+                        <item>lmao</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>sorry</item>
+                        <item>apologize</item>
+                        <item>I am sorry</item>
+                        <item>I apologise</item>
+                        <item>I apologize</item>
+                        <item>apologies</item>
+                        <item>my apology</item>
+                        <item>my apologies</item>
+                        <item>so sorry</item>
+                        <item>very sorry</item>
+                        <item>extremely sorry</item>
+                        <item>extremely apologetic</item>
+                        <item>soz</item>
+                        <item>sozz</item>
+                        <item>so soz</item>
+                        <item>so sozz</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>you</item>
+                        <item>u</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>what is</item>
+                        <item>what&amp;apos;s</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>it</item>
+                        <item>that</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>person</item>
+                        <item>human</item>
+                        <item>real person</item>
+                        <item>actual person</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>do you know</item>
+                        <item>do you have information</item>
+                        <item>can you tell me</item>
+                        <item>what else do you know</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>can you</item>
+                        <item>can you please</item>
+                        <item>will you</item>
+                        <item>will you please</item>
+                    </grammar>
+                </concept>
+              </folder>
+   	</folder>
+
+    </flow>
+    <entities>
+    </entities>
+
+  	<constants>
+        <var_folder name="Home">
+            <var_folder name="General" type="CONST">
+                <var name="IA" type="TAG">Intelligent Agent</var>
+            </var_folder>
+        </var_folder>
+    </constants>
+
+    <variables>
+        <var_folder name="Home">
+            <var name="var-user_intent" type="TEXT" description="User Intent of communication"/>
+            <var name="var-user_device" type="TEXT" description="Device that the user is using"/>
+            <var name="Class1_Confidence" type="NUMBER"
+                initValue="0" description="Confidence score for Class1 from NL classifier"/>
+            <var name="Class2_Confidence" type="NUMBER"
+                initValue="0" description="Confidence score for Class2 from NL classifier"/>
+            <var name="Combined_Confidence" type="NUMBER"
+                initValue="0" description="Class1_Confidence + Class2_Confidence"/>
+            <var name="Class1_Text" type="TEXT" description="Display text for class1"/>
+            <var name="Class2_Text" type="TEXT" description="Display text for class2"/>
+            <var name="Previous_Class" type="TEXT" description="Place to store utterance class"/>
+            <var name="Defaulted_Previous" type="YESNO"
+                initValue="No" description="Whether input has hit Default node already"/>
+            <var name="Node_Class" type="TEXT"/>
+            <var name="Class1" type="TEXT"/>
+            <var name="Class2" type="TEXT"/>
+        </var_folder>
+        <var_folder name="Conversation Management" type="VAR">
+           <var name="Greeting_Count" type="NUMBER" initValue="0" description="How many times a user says &amp;quot;hi&amp;quot; or &amp;quot;howareyou&amp;quot;"/>
+           <var name="Small_Talk_Count" type="NUMBER" initValue="0" description="How many times User engages Small Talk sequences"/>
+           <var name="Out-of-Scope_Count" type="NUMBER"
+               initValue="0" description="How many times User engages out-of-scope sequences"/>
+           <var name="User_Name" type="TEXT" initValue="friend"/>
+           <var name="First_Time" type="YESNO" initValue="Yes" description="User&amp;apos;s first time using the app."/>
+           <var name="User_Input" type="TEXT"/>
+           <var name="Topic" type="TEXT"/>
+           <var name="Request_Success" type="YESNO" description="Did the user find what s/he was looking for?"/>
+           <var name="Terminal_Exchange" type="YESNO"
+               initValue="No" description="Has the system already said goodbye?"/>
+       </var_folder>
+    </variables>
+
+    <settings>
+        <setting name="AUTOLEARN" type="USER">false</setting>
+        <setting name="LANGUAGE" type="USER">en-US</setting>
+        <setting name="RESPONSETIME" type="USER">-2</setting>
+        <setting name="MAXAUTOLEARNITEMS" type="USER">2</setting>
+        <setting name="NUMAUTOSETRELATED" type="USER">0</setting>
+        <setting name="TIMEZONEID" type="USER">America/Tijuana</setting>
+        <setting name="AUTOSETRELATEDNODEID" type="USER">2158864</setting>
+        <setting name="INPUTMASKTYPE" type="USER">0</setting>
+        <setting name="CONCEPTMATCHING" type="USER">1</setting>
+        <setting name="UI_COLOUR"></setting>
+        <setting name="DNR_NODE_ID">-16</setting>
+        <setting name="USE_CONCEPTS">1</setting>
+        <setting name="PARENT_ACCOUNT">pconcepts</setting>
+        <setting name="AL_NONE_LABEL">None of the above</setting>
+        <setting name="DEFAULT_DNR_RETURN_POINT_CANDIDATE">-1</setting>
+        <setting name="ENTITIES_SCOPE">3</setting>
+        <setting name="MULTISENT">0</setting>
+        <setting name="DEFAULT_POINT_NODE_ID">2531765</setting>
+        <setting name="PLATFORM_VERSION">10.1</setting>
+        <setting name="USE_TRANSLATIONS">2</setting>
+        <setting name="USE_SPELLING_CORRECTIONS">2</setting>
+        <setting name="USE_STOP_WORDS">2</setting>
+    </settings>
+
+    <specialSettings>
+        <specialSetting label="Offline Output">
+            <variations/>
+        </specialSetting>
+        <specialSetting label="AutoLearn Statement" selectionType="SEQUENTIAL">
+            <variations/>
+        </specialSetting>
+        <specialSetting label="DNR Join Statement" selectionType="RANDOM">
+            <variations/>
+        </specialSetting>
+    </specialSettings>
+
+</dialog>

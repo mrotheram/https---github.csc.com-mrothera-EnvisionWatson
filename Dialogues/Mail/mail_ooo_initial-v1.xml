@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog xsi:noNamespaceSchemaLocation="WatsonDialogDocument_1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <flow>
+        <folder label="Main">
+            <output>
+                <prompt selectionType="RANDOM">
+                    <item><![CDATA[{"text":"Please confirm from one of these versions of Outlook that you are using: \n\n <ul><li> Outlook 2010 </li><li> Outlook 2013 </li><li> Outlook 2016 </li><li> Outlook Web App </li><li> Office 365 </li></ul>"}]]></item>
+                </prompt>
+                <action varName="var_support_required" operator="SET_TO">OUT_OF_OFFICE</action>
+                <action varName="var_software" operator="SET_TO">Mail</action>
+                <action varName="var_status" operator="SET_TO">PENDING_USER_INPUT</action>
+                <goto ref="getUserInput_2442994"/>
+            </output>
+            <output>
+                <prompt selectionType="SEQUENTIAL">
+                    <item><![CDATA[{"text":"Which of these versions of Outlook you are using ? \n\n <ul><li> Outlook 2010 </li><li> Outlook 2013 </li><li> Outlook 2016 </li><li> Outlook Web App </li><li> Office 365 </li></ul>"}]]></item>
+                </prompt>
+                <action varName="var_status" operator="SET_TO">PENDING_USER_INPUT</action>
+                <getUserInput id="getUserInput_2442994">
+                	<search ref="closingSequenceFolder" />
+                    <search ref="folder_2442998"/>
+                    <default>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>I'm sorry I did not understand your question. </item>
+                                <item>I did not quite get that.</item>
+                                <item>I didnt grasp what you said.</item>
+                                <item>I'm not following you at the moment.</item>
+                            </prompt>
+                        </output>
+                    </default>
+                </getUserInput>
+            </output>
+        </folder>
+
+        <folder label="Library">
+              <folder label="Live Content" id="folder_2442998">
+              		<input>
+	                    <grammar>
+	                        <item>I am using Outlook 2010</item>
+	                        <item>$ I am using *</item>
+	                        <item>$ I use *</item>
+                          <item>$ (VERSION)={var_software_version} </item>
+	                    </grammar>
+                      <input>
+                          <grammar>
+                              <item>$ (VERSION)={var_software_version}</item>
+                          </grammar>
+                          <action varName="var_software_version" operator="SET_TO">{var_software_version.value:main}</action>
+    	                    <action varName="var_status" operator="SET_TO">REDIRECT</action>
+    	                	  <goto ref="profileCheck_2469744"/>
+                      </input>
+	                </input>
+               </folder>
+
+            	<folder label="CLOSING SEQUENCES" id="closingSequenceFolder">
+                    <input>
+                        <grammar>
+                            <item>I should be going</item>
+                            <item>$ should be going</item>
+                            <item>$ should go</item>
+                            <item>$ need to go</item>
+                            <item>$ got to go</item>
+                            <item>$ gotta run</item>
+                            <item>$ gotta go</item>
+                            <item>$ need to run</item>
+                            <item>$ need to leave</item>
+                            <item>$ have to leave</item>
+                            <item>$ have to go</item>
+                            <item>$ gtg</item>
+                        </grammar>
+                        <output id="output_2449675">
+                            <prompt selectionType="RANDOM">
+                                <item>{"text":"Okay."}</item>
+                            </prompt>
+                            <goto ref="output_2458386"/>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Thanks for your help</item>
+                            <item>$ thank you for your help</item>
+                            <item>$ thanks for your help</item>
+                        </grammar>
+                        <output>
+                            <prompt selectionType="RANDOM">
+                                <item>{"text":"You are welcome."}</item>
+                            </prompt>
+                            <goto ref="output_2458386"/>
+                        </output>
+                    </input>
+                    <input>
+                        <grammar>
+                            <item>Goodbye</item>
+                        </grammar>
+                    </input>
+                </folder>
+
+                <folder label="Check Out">
+                    <if id="profileCheck_2469744">
+                        <cond varName="var_software" operator="HAS_VALUE" />
+                        <cond varName="var_software_version" operator="HAS_VALUE" />
+                        <cond varName="var_support_required" operator="HAS_VALUE" />
+                            <output>
+                                <prompt selectionType="RANDOM">
+                                    <item>{var_software} {var_support_required} {var_software_version} </item>
+                                </prompt>
+                            </output>
+                     </if>
+                 </folder>
+
+            <folder label="Storage"/>
+        </folder>
+        <folder label="Global"/>
+
+		<folder label="Concepts">
+            <folder label="Generic">
+                <concept>
+                    <grammar>
+                        <item>okay</item>
+                        <item>ok</item>
+                        <item>thanks</item>
+                        <item>thank you</item>
+                        <item>ok thanks</item>
+                        <item>ok thank you</item>
+                        <item>okay thanks</item>
+                        <item>okay thank you</item>
+                        <item>great thanks</item>
+                        <item>great thank you</item>
+                        <item>all right</item>
+                        <item>alright</item>
+                        <item>great</item>
+                        <item>cool</item>
+                        <item>aww</item>
+                        <item>awww</item>
+                        <item>oh</item>
+                        <item>oh okay</item>
+                        <item>oh ok</item>
+                        <item>ah</item>
+                        <item>ah okay</item>
+                        <item>ah ok</item>
+                        <item>got it</item>
+                        <item>gotcha</item>
+                        <item>cheers</item>
+                        <item>ta</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>Goodbye</item>
+                        <item>bye bye</item>
+                        <item>bye now</item>
+                        <item>bye</item>
+                        <item>later</item>
+                        <item>laters</item>
+                        <item>see you later</item>
+                        <item>see you</item>
+                        <item>see ya later</item>
+                        <item>see ya</item>
+                        <item>cya</item>
+                        <item>au revoir</item>
+                        <item>good night</item>
+                        <item>good day</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>sorry</item>
+                        <item>apologize</item>
+                        <item>I am sorry</item>
+                        <item>I apologise</item>
+                        <item>I apologize</item>
+                        <item>apologies</item>
+                        <item>my apology</item>
+                        <item>my apologies</item>
+                        <item>so sorry</item>
+                        <item>very sorry</item>
+                        <item>extremely sorry</item>
+                        <item>extremely apologetic</item>
+                        <item>soz</item>
+                        <item>sozz</item>
+                        <item>so soz</item>
+                        <item>so sozz</item>
+                    </grammar>
+                </concept>
+                <concept>
+                    <grammar>
+                        <item>I am using</item>
+                        <item>I'm using</item>
+                        <item>I use</item>
+                        <item>I have</item>
+                    </grammar>
+                </concept>
+                <concept>
+                  <grammar>
+                      <item>webmail</item>
+                      <item>outlook web app</item>
+                      <item>outlook webmail</item>
+                      <item>outlook on web</item>
+                      <item>web app</item>
+                      <item>owa</item>
+                  </grammar>
+                </concept>
+
+              </folder>
+   	</folder>
+
+    </flow>
+    <entities>
+    	<entity name="SOFTWARE">
+    		<value name="mail" value="Mail">
+                <grammar>
+                    <item>email</item>
+                    <item>mail</item>
+                    <item>e-mail</item>
+                    <item>webmail</item>
+                </grammar>
+            </value>
+            <value name="skype for business" value="Skype for Business">
+                <grammar>
+                    <item>skype for business</item>
+                    <item>lync</item>
+                    <item>skype</item>
+                    <item>lync for business</item>
+                </grammar>
+            </value>
+            <value name="sharepoint" value="Sharepoint">
+                <grammar>
+                    <item>share point</item>
+                </grammar>
+            </value>
+        </entity>
+        <entity name="VERSION">
+    		<value name="outlook 2010" value="Outlook 2010">
+                <grammar>
+                    <item>2010</item>
+                    <item>outlook 2010</item>
+                </grammar>
+            </value>
+            <value name="outlook 2013" value="Outlook 2013">
+                <grammar>
+                    <item>2013</item>
+                    <item>outlook 2013</item>
+                </grammar>
+            </value>
+            <value name="outlook 2016" value="Outlook 2010">
+                <grammar>
+                    <item>2016</item>
+                    <item>outlook 2016</item>
+                </grammar>
+            </value>
+            <value name="outlook web app" value="Outlook Web App">
+                <grammar>
+                    <item>webmail</item>
+                    <item>outlook web app</item>
+                    <item>outlook webmail</item>
+                    <item>outlook on web</item>
+                    <item>web app</item>
+                    <item>owa</item>
+                </grammar>
+            </value>
+            <value name="office 365" value="Office 365">
+                <grammar>
+                    <item>365</item>
+                    <item>office 365</item>
+                    <item>Microsoft office 365</item>
+                    <item>ms office 365</item>
+                    <item>office</item>
+                </grammar>
+            </value>
+        </entity>
+    </entities>
+
+  	<constants>
+        <var_folder name="Home">
+            <var_folder name="General" type="CONST">
+                <var name="IA" type="TAG">Intelligent Agent</var>
+            </var_folder>
+        </var_folder>
+    </constants>
+
+    <variables>
+        <var_folder name="Home">
+            <var name="var_support_required" type="TEXT" description="This holds the info about the support user needs"/>
+            <var name="var_software" type="TEXT" description="Software that user is facing issues with"/>
+            <var name="var_software_version" type="TEXT" description="Software that user is facing issues with"/>
+            <var name="var_status" type="TEXT" description="Conversation Status"/>
+
+            <var name="Class1_Confidence" type="NUMBER"
+                initValue="0" description="Confidence score for Class1 from NL classifier"/>
+            <var name="Class2_Confidence" type="NUMBER"
+                initValue="0" description="Confidence score for Class2 from NL classifier"/>
+            <var name="Class1" type="TEXT"/>
+            <var name="Class2" type="TEXT"/>
+        </var_folder>
+    </variables>
+
+    <settings>
+        <setting name="AUTOLEARN" type="USER">false</setting>
+        <setting name="LANGUAGE" type="USER">en-US</setting>
+        <setting name="RESPONSETIME" type="USER">-2</setting>
+        <setting name="MAXAUTOLEARNITEMS" type="USER">2</setting>
+        <setting name="NUMAUTOSETRELATED" type="USER">0</setting>
+        <setting name="TIMEZONEID" type="USER">America/Tijuana</setting>
+        <setting name="AUTOSETRELATEDNODEID" type="USER">2158864</setting>
+        <setting name="INPUTMASKTYPE" type="USER">0</setting>
+        <setting name="CONCEPTMATCHING" type="USER">1</setting>
+        <setting name="UI_COLOUR"></setting>
+        <setting name="DNR_NODE_ID">-16</setting>
+        <setting name="USE_CONCEPTS">1</setting>
+        <setting name="PARENT_ACCOUNT">pconcepts</setting>
+        <setting name="AL_NONE_LABEL">None of the above</setting>
+        <setting name="DEFAULT_DNR_RETURN_POINT_CANDIDATE">-1</setting>
+        <setting name="ENTITIES_SCOPE">3</setting>
+        <setting name="MULTISENT">0</setting>
+        <setting name="DEFAULT_POINT_NODE_ID">2531765</setting>
+        <setting name="PLATFORM_VERSION">10.1</setting>
+        <setting name="USE_TRANSLATIONS">2</setting>
+        <setting name="USE_SPELLING_CORRECTIONS">2</setting>
+        <setting name="USE_STOP_WORDS">2</setting>
+    </settings>
+
+    <specialSettings>
+        <specialSetting label="Offline Output">
+            <variations/>
+        </specialSetting>
+        <specialSetting label="AutoLearn Statement" selectionType="SEQUENTIAL">
+            <variations/>
+        </specialSetting>
+        <specialSetting label="DNR Join Statement" selectionType="RANDOM">
+            <variations/>
+        </specialSetting>
+    </specialSettings>
+
+</dialog>
